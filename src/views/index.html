@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suma de Matrices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-red-100 h-screen w-screen">
+
+    <main class="p-10 grid">
+
+        <!-- * ORDEN DE LAS MATRICES -->
+        <section class="flex justify-center">
+
+            <div class="text-center bg-slate-100 rounded-md py-4 border-2 border-red-500">
+                <h2 class="font-bold border-b-2 border-black text-center">Indique el orden de las matrices</h2>
+
+                <div class="grid grid-cols-2 grid-rows-1 p-6 space-x-3">
+
+                    <div class="space-y-2 pt-2 grid grid-rows-3">
+                        <h3 class="font-bold">Matriz N°1</h3>
+                        <input type="number" id="fila1" class="border-2 rounded-md border-slate-400"
+                            placeholder="Numero de filas">
+
+                        <input type="number" id="columna1" class="border-2 rounded-md border-slate-400"
+                            placeholder="Numero de columnas">
+                    </div>
+
+                    <div class="space-y-2 pt-2 grid grid-rows-3">
+                        <h3 class="font-bold">Matriz N°2</h3>
+                        <input type="number" id="fila2" class="border-2 rounded-md border-slate-400"
+                            placeholder="Numero de filas">
+
+                        <input type="number" id="columna2" class="border-2 rounded-md border-slate-400"
+                            placeholder="Numero de columnas">
+                    </div>
+                </div>
+
+                <button
+                    class="bg-red-600 hover:bg-red-300 transition-colors duration-300 rounded-md p-2 text-white mt-4"
+                    id="crearMatricesBtn">Crear
+                    Matrices</button>
+            </div>
+
+        </section>
+
+        <!-- * MATRICES -->
+        <section class="grid grid-cols-2 pt-10 gap-x-5">
+            <!-- * MATRIZ 1 -->
+            <div class="bg-slate-100 text-center border-2 border-red-500 rounded-md">
+                <h3 class="font-bold  border-b-2 border-black overflow-x">Matriz 1</h3>
+                <div id="matriz1Content" class="overflow-x-scroll px-5">
+                    <span class="font-semibold animate-pulse">Esperando a recibir datos...</span>
+                </div>
+            </div>
+
+            <!-- * MATRIZ 2 -->
+
+            <div class="bg-slate-100 text-center border-2 border-red-500 rounded-md">
+                <h3 class="font-bold  border-b-2 border-black">Matriz 2</h3>
+                <div id="matriz2Content" class="overflow-x-scroll px-5">
+                    <span class="font-semibold animate-pulse">Esperando a recibir datos...</span>
+                </div>
+            </div>
+        </section>
+
+        <button id="calcular"
+            class="bg-red-600 hover:bg-red-300 transition-colors duration-300 rounded-md p-2 text-white my-5 hidden">Calcular</button>
+        <!-- * MATRIZ FINAL -->
+
+        <section class="flex justify-center hidden" id="sectionResult">
+
+            <div class="text-center bg-slate-100 rounded-md py-4 w-64 border-2 border-red-500">
+                <h2 class="font-bold border-b-2 border-black">Resultado de la suma</h2>
+
+                <div class="space-y-2 pt-2" id="divResult">
+                    <span class="font-semibold animate-pulse">Esperando a recibir datos...</span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+    <script src="http://127.0.0.1:5500/src/public/calculadora.js"></script>
+    <script src="/calculadora.js"></script>
+</body>
+
+</html>
