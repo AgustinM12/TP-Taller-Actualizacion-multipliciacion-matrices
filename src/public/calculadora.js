@@ -28,8 +28,8 @@ function crearMatrices() {
     matriz2.innerHTML = "";
     // * Creamos los inputs para la matriz 1
     for (let i = 0; i < numFila; i++) {
-      let nuevaFila = document.createElement("div")
-      nuevaFila.className = "flex justify-center items-center gap-2 my-2 mx-auto";
+      let nuevaFila = document.createElement("div");
+      nuevaFila.className = "gap-2 py-1 flex justify-center ";
 
       for (let j = 0; j < numCol; j++) {
         let input = document.createElement("input");
@@ -43,8 +43,8 @@ function crearMatrices() {
 
     // * Creamos los inputs para la matriz 2
     for (let i = 0; i < numFila2; i++) {
-      let nuevaFila = document.createElement("div")
-      nuevaFila.className = "flex justify-center items-center gap-2 my-2 mx-auto";
+      let nuevaFila = document.createElement("div");
+      nuevaFila.className = "gap-2 py-1 flex justify-center";
 
       for (let j = 0; j < numCol2; j++) {
         let input = document.createElement("input");
