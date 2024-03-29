@@ -2,26 +2,32 @@ export const ctrlSum = (req, res) => {
 
     const { array1, array2 } = req.body
 
-    if (array1.length !== array2.length || array1[0].length !== array2[0].length) {
-        return "El orden de las matrices debe ser igual"
-    }
-
     let result = []
 
+    // Obtener las dimensiones de las matrices A y B
+    let filas1 = array1.length;
+    let cols1 = array1[0].length;
+    let cols2 = array2[0].length;
 
-    // * Solución con for anidados
-    // for (let filas = 0; filas < array1[0].length; filas++) {
-    //     let fila = []
-    //     for (let cols = 0; cols < array2.length; cols++) {
-    //         fila.push(array1[filas][cols] + array2[filas][cols])
-    //     }
-    //     result.push(fila)
-    // }
-
-    for (let i = 0; i < array1.length; i++) {
-        result.push(array1[i] + array2[i]);
+    // Inicializar la matriz C con ceros
+    for (let i = 0; i < filas1; i++) {
+        result[i] = [];
+        for (let j = 0; j < cols2; j++) {
+            result[i][j] = 0;
+        }
     }
 
+    // Realizar la multiplicación de matrices
+    for (let i = 0; i < filas1; i++) {
+        for (let j = 0; j < cols2; j++) {
+            for (let k = 0; k < cols1; k++) {
+                result[i][j] += array1[i][k] * array2[k][j];
+            }
+        }
+    }
+
+    // Imprimir la matriz resultante C
+    console.log("Matriz resultante");
     console.log(result);
 
     return res.status(200).json(result)

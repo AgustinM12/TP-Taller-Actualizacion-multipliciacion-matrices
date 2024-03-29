@@ -12,18 +12,17 @@ const divResult = document.getElementById("divResult");
 const matriz1 = document.getElementById("matriz1Content");
 const matriz2 = document.getElementById("matriz2Content");
 
-
 // ! FUNCIONES
 function crearMatrices() {
+
   let numFila = parseInt(numFilaInput1.value);
   let numCol = parseInt(numColInput1.value);
 
   let numFila2 = parseInt(numFilaInput2.value);
   let numCol2 = parseInt(numColInput2.value);
 
-  console.log(numFila, numCol);
+  if (numFila > 0 && numCol > 0 && numFila2 > 0 && numCol2 > 0 && numCol == numFila2) {
 
-  if (numFila > 0 && numCol > 0) {
     matriz1.innerHTML = "";
     matriz2.innerHTML = "";
     // * Creamos los inputs para la matriz 1
@@ -57,27 +56,50 @@ function crearMatrices() {
     }
     sectionResult.classList.remove("hidden");
     calcularBtn.classList.remove("hidden");
+  } else {
+    alert("Las matrices no cumplen con las condiciones para realizar la multiplicación, las columnas de la matriz 1 deben ser iguales a las filas de la matriz 2.");
   }
 }
 
 //* Funcion para capturar valores y enviarlos al servidor
 async function capturarValores() {
 
+  let numFila1 = parseInt(numFilaInput1.value);
+  let numCol1 = parseInt(numColInput1.value);
+
+  let numFila2 = parseInt(numFilaInput2.value);
+  let numCol2 = parseInt(numColInput2.value);
+
   let primerMatriz = [];
   let segundaMatriz = [];
+  let newFila = []
+  let index = 0;
 
   const inputMatriz1 = document.querySelectorAll('.inputMatriz1');
   const inputMatriz2 = document.querySelectorAll('.inputMatriz2');
 
-  inputMatriz1.forEach((input) => {
-    primerMatriz.push(parseInt(input.value));
-  });
+  //* matriz 1
+  for (let i = 0; i < numFila1; i++) {
+    newFila = [];
+    for (let j = 0; j < numCol1; j++) {
+      newFila.push(inputMatriz1[index].value);
+      index++;
+    }
+    primerMatriz.push(newFila);
+  }
+  //* matriz 2
+  index = 0;
+  for (let i = 0; i < numFila2; i++) {
+    newFila = [];
+    for (let j = 0; j < numCol2; j++) {
+      newFila.push(inputMatriz2[index].value);
+      index++;
+    }
+    segundaMatriz.push(newFila);
+  }
 
-
-  inputMatriz2.forEach((input) => {
-    segundaMatriz.push(parseInt(input.value));
-  });
-
+  console.log(primerMatriz);
+  console.log(segundaMatriz);
 
   //*enviar al servidor
   const res = await fetch('/arrayCalculation', {
@@ -90,29 +112,23 @@ async function capturarValores() {
 
   const data = await res.json();
 
-  let numFila = parseInt(numFilaInput1.value);
-  let numCol = parseInt(numColInput1.value);
-
   //*dibujar el resultado
   divResult.innerHTML = "";
-  for (let i = 0; i < numFila; i++) {
+  for (let i = 0; i < data.length; i++) {
     let nuevaFila = document.createElement("div")
-    nuevaFila.className = "flex justify-center items-center gap-2 my-2 mx-auto";
+    nuevaFila.className = "gap-2 py-1 flex justify-center ";
 
-    for (let j = 0; j < numCol; j++) {
+    for (let j = 0; j < data[0].length; j++) {
       let input = document.createElement("input");
       input.type = "number";
       input.readOnly = true;
       input.className = "border-2 rounded-md border-slate-400 w-20 resultInput";
+      input.value = data[i][j];
       nuevaFila.appendChild(input);
     }
     divResult.appendChild(nuevaFila);
   }
 
-  const resultInput = document.querySelectorAll('.resultInput');
-  resultInput.forEach((input, index) => {
-    input.value = data[index];
-  });
 }
 
 // ! EVENTOS
